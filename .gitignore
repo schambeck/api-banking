@@ -1,2 +1,5 @@
 # Project exclude paths
 /target/
+/.idea/
+/.mvn/
+/api-banking.iml
