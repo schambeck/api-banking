@@ -1,5 +1,5 @@
 # Project exclude paths
 /target/
 /.idea/
-/.mvn/
 /api-banking.iml
+/.mvn/wrapper/maven-wrapper.jar
