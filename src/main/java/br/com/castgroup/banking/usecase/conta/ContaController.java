@@ -8,19 +8,14 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ContaController {
-//    private final CreateContaSaldoZeradoInteractor createContaSaldoZerado;
-    private final CreateContaUseCase create;
+    private final CreateContaSaldoZeradoInteractor createContaSaldoZerado;
     private final UpdateContaUseCase update;
     private final RemoveContaUseCase remove;
     private final FindContaUseCase find;
     private final SearchContaUseCase search;
 
-//    public Conta createContaSaldoZerado(Conta entity) {
-//        return createContaSaldoZerado.execute(entity);
-//    }
-    
-    public Conta create(Conta entity) {
-        return create.execute(entity);
+    public Conta createContaSaldoZerado(Conta entity) {
+        return createContaSaldoZerado.execute(entity);
     }
 
     public Conta update(int id, Conta entity) {

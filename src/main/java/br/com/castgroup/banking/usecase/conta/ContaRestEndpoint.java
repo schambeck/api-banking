@@ -15,15 +15,9 @@ public class ContaRestEndpoint {
     private final ContaMapper mapper;
     private final ContaController controller;
 
-//    @PostMapping
-//    public ResponseEntity<ContaWeb> create(@RequestBody ContaWeb web) {
-//        Conta created = controller.createContaSaldoZerado(mapper.toEntity(web));
-//        return ResponseEntity.ok(mapper.toWeb(created));
-//    }
-
     @PostMapping
     public ResponseEntity<ContaWeb> create(@RequestBody ContaWeb web) {
-        Conta created = controller.create(mapper.toEntity(web));
+        Conta created = controller.createContaSaldoZerado(mapper.toEntity(web));
         return ResponseEntity.ok(mapper.toWeb(created));
     }
 

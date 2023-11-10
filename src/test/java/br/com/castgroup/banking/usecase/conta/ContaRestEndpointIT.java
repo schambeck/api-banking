@@ -44,7 +44,7 @@ class ContaRestEndpointIT {
         Correntista correntistaMock = createCorrentista(1, "Scott Anton", "scottanton@gmail.com", "73190252050");
         Conta toCreate = createConta(4, "4444", correntistaMock);
         Conta created = createConta(4, 4, "4444", correntistaMock);
-        when(controller.create(toCreate)).thenReturn(created);
+        when(controller.createContaSaldoZerado(toCreate)).thenReturn(created);
         
         CorrentistaWeb correntistaWeb = createCorrentistaWeb(1, "Scott Anton", "scottanton@gmail.com", "73190252050");
         ContaWeb payload = createContaWeb(4, "4444", correntistaWeb);
@@ -81,25 +81,6 @@ class ContaRestEndpointIT {
                 body("agencia", is("1112"));
     }
     
-//    @Test
-//    void givenUpdateInvalidId_whenNotExists_thenWrong() {
-//        Correntista correntistaMock = createCorrentista(5, "Marion Vineyard", "marionvineyard@gmail.com", "66120072063");
-//        Conta toUpdate = createConta(5, "5555", correntistaMock);
-//        when(controller.update(5, toUpdate)).thenThrow(new NotFoundException("Entity %d not found".formatted(5)));
-//
-//        CorrentistaWeb correntistaWeb = createCorrentistaWeb(5, "Marion Vineyard", "marionvineyard@gmail.com", "66120072063");
-//        ContaWeb payload = createContaWeb(5, "5555", correntistaWeb);
-//        given().
-//                contentType(JSON).
-//                accept(JSON).
-//                body(payload).
-//        when().
-//                put("/contas/{id}", "5").
-//        then().
-//                log().all().
-//                statusCode(404);
-//    }
-    
     @Test
     void givenRemoveValidId_whenExists_thenCorrect() {
         doNothing().when(controller).remove(2);
@@ -126,15 +107,6 @@ class ContaRestEndpointIT {
                 statusCode(200).
                 body("numero", equalTo(3));
     }
-    
-//    @Test
-//    void givenFind_whenDoesNotExist_thenWrong() {
-//        when(controller.findById(5)).thenThrow(new NotFoundException("Entity %d not found".formatted(5)));
-//        get("/contas/{id}", "5")
-//                .then()
-//                .log().all()
-//                .statusCode(404);
-//    }
     
     @Test
     void givenSearch_whenExists_thenCorrect() {

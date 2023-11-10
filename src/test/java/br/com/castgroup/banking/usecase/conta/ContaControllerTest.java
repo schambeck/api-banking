@@ -22,7 +22,7 @@ class ContaControllerTest {
     private ContaController controller;
     
     @Mock
-    private CreateContaUseCase create;
+    private CreateContaSaldoZeradoInteractor create;
     
     @Mock
     private UpdateContaUseCase update;
@@ -42,7 +42,7 @@ class ContaControllerTest {
         Conta toCreate = createConta(4, "4444", correntistaMock);
         Conta createdMock = createConta(4, 4, "4444", correntistaMock);
         when(create.execute(toCreate)).thenReturn(createdMock);
-        Conta created = controller.create(toCreate);
+        Conta created = controller.createContaSaldoZerado(toCreate);
         assertEquals(4, created.getNumero());
     }
     
