@@ -12,5 +12,6 @@ class ControllerAdvice {
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(value = NOT_FOUND, reason = "Entity not found")
     void handleNotFound() {
+        // No content
     }
 }

@@ -73,28 +73,6 @@ class CorrentistaRestEndpointIT {
                 body("nome", is("Scott Antonn"));
     }
     
-//    @Test
-//    void givenUpdateInvalidId_whenNotExists_thenWrong() {
-//        Correntista toUpdate = createCorrentista(5, "Robert V Davis", "robertdavis@gmail.com", "35814875003");
-//        when(controller.update(5, toUpdate)).thenThrow(new NotFoundException("Entity %d not found".formatted(5)));
-//
-//        CorrentistaWeb payload = CorrentistaWeb.builder()
-//                .id(5)
-//                .nome("Robert V Davis")
-//                .email("robertdavis@gmail.com")
-//                .cpf("35814875003")
-//                .build();
-//        given().
-//                contentType(JSON).
-//                accept(JSON).
-//                body(payload).
-//        when().
-//                put("/correntistas/{id}", "5").
-//        then().
-//                log().all().
-//                statusCode(404);
-//    }
-
     @Test
     void givenRemoveValidId_whenExists_thenCorrect() {
         doNothing().when(controller).remove(2);
@@ -120,15 +98,6 @@ class CorrentistaRestEndpointIT {
                 statusCode(200).
                 body("nome", equalTo("Charles Benson"));
     }
-    
-//    @Test
-//    void givenFind_whenDoesNotExist_thenWrong() {
-//        when(controller.findById(5)).thenThrow(new NotFoundException("Entity %d not found".formatted(5)));
-//        get("/correntistas/{id}", "5")
-//                .then()
-//                .log().all()
-//                .statusCode(404);
-//    }
     
     @Test
     void givenSearch_whenExists_thenCorrect() {
