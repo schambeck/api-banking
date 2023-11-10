@@ -4,9 +4,10 @@ import br.com.castgroup.banking.usecase.correntista.Correntista;
 import br.com.castgroup.banking.usecase.saldo.CreateSaldoZeradoUseCase;
 import br.com.castgroup.banking.usecase.saldo.Saldo;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static br.com.castgroup.banking.usecase.conta.ContaUtil.createConta;
 import static br.com.castgroup.banking.usecase.correntista.CorrentistaUtil.createCorrentista;
@@ -14,15 +15,15 @@ import static br.com.castgroup.banking.usecase.saldo.SaldoUtil.createSaldo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = CreateContaSaldoZeradoInteractor.class)
+@ExtendWith(SpringExtension.class)
 class CreateContaSaldoZeradoInteractorTest {
-    @Autowired
+    @InjectMocks
     private CreateContaSaldoZeradoInteractor service;
     
-    @MockBean
+    @Mock
     private CreateContaUseCase createConta;
     
-    @MockBean
+    @Mock
     private CreateSaldoZeradoUseCase createSaldoZerado;
     
     @Test
