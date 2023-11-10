@@ -65,7 +65,8 @@ class CreateTransferenciaInteractorTest {
         DadosConta dadosContaOrigem = DadosConta.builder().numero(contaOrigem.getNumero()).agencia(contaOrigem.getAgencia()).build();
         DadosConta dadosContaDestino = DadosConta.builder().numero(contaDestino.getNumero()).agencia(contaDestino.getAgencia()).build();
         BigDecimal valor = new BigDecimal("111");
-        assertThrows(NotFoundException.class, () -> service.execute(dadosContaOrigem, dadosContaDestino, LocalDate.parse("2023-11-01"), valor), "Conta 1 e agência 1111 não encontrada");
+        LocalDate data = LocalDate.parse("2023-11-01");
+        assertThrows(NotFoundException.class, () -> service.execute(dadosContaOrigem, dadosContaDestino, data, valor), "Conta 1 e agência 1111 não encontrada");
     }
     
     @Test
@@ -80,6 +81,7 @@ class CreateTransferenciaInteractorTest {
         DadosConta dadosContaOrigem = DadosConta.builder().numero(contaOrigem.getNumero()).agencia(contaOrigem.getAgencia()).build();
         DadosConta dadosContaDestino = DadosConta.builder().numero(contaDestino.getNumero()).agencia(contaDestino.getAgencia()).build();
         BigDecimal valor = new BigDecimal("111");
-        assertThrows(NotFoundException.class, () -> service.execute(dadosContaOrigem, dadosContaDestino, LocalDate.parse("2023-11-01"), valor), "Conta 3 e agência 3333 não encontrada");
+        LocalDate data = LocalDate.parse("2023-11-01");
+        assertThrows(NotFoundException.class, () -> service.execute(dadosContaOrigem, dadosContaDestino, data, valor), "Conta 3 e agência 3333 não encontrada");
     }
 }

@@ -57,6 +57,7 @@ class CreateSaqueInteractorTest {
         
         DadosConta dadosConta = DadosConta.builder().numero(conta.getNumero()).agencia(conta.getAgencia()).build();
         BigDecimal valor = new BigDecimal("111");
-        assertThrows(NotFoundException.class, () -> service.execute(dadosConta, LocalDate.parse("2023-11-01"), valor), "Conta 1 e agência 1111 não encontrada");
+        LocalDate data = LocalDate.parse("2023-11-01");
+        assertThrows(NotFoundException.class, () -> service.execute(dadosConta, data, valor), "Conta 1 e agência 1111 não encontrada");
     }
 }

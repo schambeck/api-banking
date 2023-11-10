@@ -66,7 +66,8 @@ class CreateSaqueUseCaseTest {
         Conta conta = createConta(1, 1, "1111", correntista);
         when(saldoRepository.lockById(conta.getId())).thenReturn(Optional.empty());
         BigDecimal valor = new BigDecimal("1234");
-        assertThrows(NotFoundException.class, () -> service.execute(conta, LocalDate.parse("2023-11-01"), valor), "Saldo da Conta 1 não encontrado");
+        LocalDate data = LocalDate.parse("2023-11-01");
+        assertThrows(NotFoundException.class, () -> service.execute(conta, data, valor), "Saldo da Conta 1 não encontrado");
     }
     
     @Test
@@ -76,6 +77,7 @@ class CreateSaqueUseCaseTest {
         Saldo saldo = createSaldo(1, conta, new BigDecimal("1000"));
         when(saldoRepository.lockById(conta.getId())).thenReturn(Optional.of(saldo));
         BigDecimal valor = new BigDecimal("1234");
-        assertThrows(BusinessException.class, () -> service.execute(conta, LocalDate.parse("2023-11-01"), valor), "Limite da Conta Número %d Agência %s insuficiente");
+        LocalDate data = LocalDate.parse("2023-11-01");
+        assertThrows(BusinessException.class, () -> service.execute(conta, data, valor), "Limite da Conta Número %d Agência %s insuficiente");
     }
 }

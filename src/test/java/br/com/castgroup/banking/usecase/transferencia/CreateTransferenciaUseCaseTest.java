@@ -80,7 +80,8 @@ class CreateTransferenciaUseCaseTest {
         when(saldoRepository.lockById(contaOrigem.getId())).thenReturn(Optional.empty());
         when(saldoRepository.lockById(contaDestino.getId())).thenReturn(Optional.of(saldoDestino));
         BigDecimal valor = new BigDecimal("1234");
-        assertThrows(NotFoundException.class, () -> service.execute(contaOrigem, contaDestino, LocalDate.parse("2023-11-01"), valor), "Saldo da Conta 1 não encontrado");
+        LocalDate data = LocalDate.parse("2023-11-01");
+        assertThrows(NotFoundException.class, () -> service.execute(contaOrigem, contaDestino, data, valor), "Saldo da Conta 1 não encontrado");
     }
 
     @Test
@@ -93,7 +94,8 @@ class CreateTransferenciaUseCaseTest {
         when(saldoRepository.lockById(contaOrigem.getId())).thenReturn(Optional.of(saldoOrigem));
         when(saldoRepository.lockById(contaDestino.getId())).thenReturn(Optional.empty());
         BigDecimal valor = new BigDecimal("1234");
-        assertThrows(NotFoundException.class, () -> service.execute(contaOrigem, contaDestino, LocalDate.parse("2023-11-01"), valor), "Saldo da Conta 1 não encontrado");
+        LocalDate data = LocalDate.parse("2023-11-01");
+        assertThrows(NotFoundException.class, () -> service.execute(contaOrigem, contaDestino, data, valor), "Saldo da Conta 1 não encontrado");
     }
 
     @Test
@@ -107,6 +109,7 @@ class CreateTransferenciaUseCaseTest {
         when(saldoRepository.lockById(contaOrigem.getId())).thenReturn(Optional.of(saldoOrigem));
         when(saldoRepository.lockById(contaDestino.getId())).thenReturn(Optional.of(saldoDestino));
         BigDecimal valor = new BigDecimal("1234");
-        assertThrows(BusinessException.class, () -> service.execute(contaOrigem, contaDestino, LocalDate.parse("2023-11-01"), valor), "Limite da Conta Número %d Agência %s insuficiente");
+        LocalDate data = LocalDate.parse("2023-11-01");
+        assertThrows(BusinessException.class, () -> service.execute(contaOrigem, contaDestino, data, valor), "Limite da Conta Número %d Agência %s insuficiente");
     }
 }
