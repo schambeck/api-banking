@@ -27,7 +27,7 @@ check:
 # jacoco
 
 jacoco-report:
-	./mvnw clean test jacoco:report -Dmaven.plugin.validation=BRIEF
+	./mvnw clean test jacoco:report -Dmaven.plugin.validation=BRIEF -Pcoverage
 
 # sonar
 

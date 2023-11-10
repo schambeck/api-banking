@@ -31,8 +31,8 @@ public class CreateTransferenciaUseCase {
     @Transactional
     public Transferencia execute(Conta contaOrigem, Conta contaDestino, LocalDate data, BigDecimal valor) {
         log.debug("Transferencia started:");
-        Saldo saldoOrigem = saldoRepository.lockById(contaOrigem.getNumero()).orElseThrow(() -> new NotFoundException("Saldo da Conta %d não encontrado".formatted(contaOrigem.getId())));
-        Saldo saldoDestino = saldoRepository.lockById(contaDestino.getNumero()).orElseThrow(() -> new NotFoundException("Saldo da Conta %d não encontrado".formatted(contaDestino.getId())));
+        Saldo saldoOrigem = saldoRepository.lockById(contaOrigem.getId()).orElseThrow(() -> new NotFoundException("Saldo da Conta %d não encontrado".formatted(contaOrigem.getNumero())));
+        Saldo saldoDestino = saldoRepository.lockById(contaDestino.getId()).orElseThrow(() -> new NotFoundException("Saldo da Conta %d não encontrado".formatted(contaDestino.getNumero())));
         log.debug("Conta Origem  {}/{} Data {} Valor {} Saldo {}", contaOrigem.getNumero(), contaOrigem.getAgencia(), data, valor, saldoOrigem.getValor());
         log.debug("Conta Destino {}/{} Data {} Valor {} Saldo {}", contaDestino.getNumero(), contaDestino.getAgencia(), data, valor, saldoDestino.getValor());
         if (saldoOrigem.getValor().compareTo(valor) < 0) {

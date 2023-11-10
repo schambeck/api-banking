@@ -30,7 +30,7 @@ public class CreateSaqueUseCase {
     @Transactional
     public Saque execute(Conta conta, LocalDate data, BigDecimal valor) {
         log.debug("Saque started:");
-        Saldo saldo = saldoRepository.lockById(conta.getNumero()).orElseThrow(() -> new NotFoundException("Saldo da Conta %d não encontrado".formatted(conta.getId())));
+        Saldo saldo = saldoRepository.lockById(conta.getId()).orElseThrow(() -> new NotFoundException("Saldo da Conta %d não encontrado".formatted(conta.getId())));
         log.debug("Conta {}/{} Data {} Valor {} Saldo {}", conta.getNumero(), conta.getAgencia(), data, valor, saldo.getValor());
         if (saldo.getValor().compareTo(valor) < 0) {
             throw new BusinessException("Limite da Conta Número %d Agência %s insuficiente".formatted(saldo.getConta().getNumero(), saldo.getConta().getAgencia()));

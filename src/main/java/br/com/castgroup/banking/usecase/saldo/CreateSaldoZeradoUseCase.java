@@ -21,9 +21,10 @@ public class CreateSaldoZeradoUseCase {
         if (saldo.isPresent()) {
             throw new NotFoundException("Saldo Conta %d já existe".formatted(conta.getId()));
         }
-        return Saldo.builder()
+        Saldo toCreate = Saldo.builder()
                 .conta(conta)
                 .valor(ZERO)
                 .build();
+        return saldoRepository.save(toCreate);
     }
 }

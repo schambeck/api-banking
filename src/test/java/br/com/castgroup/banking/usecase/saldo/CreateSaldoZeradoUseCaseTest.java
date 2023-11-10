@@ -32,7 +32,10 @@ class CreateSaldoZeradoUseCaseTest {
     void execute() {
         Correntista correntistaMock = createCorrentista(1, "Scott Anton", "scottanton@gmail.com", "73190252050");
         Conta toCreate = createConta(4, "4444", correntistaMock);
+        Saldo saldoToCreate = createSaldo(toCreate, ZERO);
+        Saldo saldoCreated = createSaldo(1, toCreate, ZERO);
         when(saldoRepository.findByConta(toCreate)).thenReturn(Optional.empty());
+        when(saldoRepository.save(saldoToCreate)).thenReturn(saldoCreated);
         Saldo created = service.execute(toCreate);
         assertEquals(ZERO, created.getValor());
     }
