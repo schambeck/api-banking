@@ -1,5 +1,6 @@
 # API Banking
 [![build](https://github.com/schambeck/outbox-pattern/actions/workflows/maven.yml/badge.svg)](https://github.com/schambeck/api-banking/actions/workflows/maven.yml)
+[![coverage](https://sonarcloud.io/api/project_badges/measure?project=schambeck_api-banking&metric=coverage)](https://sonarcloud.io/summary/new_code?id=schambeck_api-banking)
 
 > Banking Service application.
 
