@@ -14,8 +14,13 @@ dist:
 run:
 	java -jar target/api-*.jar
 
-check: clean
-	./mvnw test
+check:
+	./mvnw clean test -Dmaven.plugin.validation=BRIEF
+
+# jacoco
+
+jacoco-report:
+	./mvnw clean test jacoco:report -Dmaven.plugin.validation=BRIEF
 
 # compose
 
