@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static br.com.castgroup.banking.usecase.conta.ContaUtil.createConta;
@@ -39,12 +40,12 @@ class CreateSaqueInteractorTest {
         Correntista correntista = createCorrentista(1, "Scott Anton", "scottanton@gmail.com", "73190252050");
         Conta conta = createConta(1, 1, "1111", correntista);
         Saldo saldo = createSaldo(1, conta, new BigDecimal("1000"));
-        Saque saque = createSaque(saldo, new BigDecimal("111"));
+        Saque saque = createSaque(saldo, LocalDate.now(), new BigDecimal("111"));
         when(contaRepository.findByNumeroAndAgencia(1, "1111")).thenReturn(Optional.of(conta));
-        when(createSaque.execute(conta, new BigDecimal("111"))).thenReturn(saque);
+        when(createSaque.execute(conta, LocalDate.now(), new BigDecimal("111"))).thenReturn(saque);
         
         DadosConta dadosConta = DadosConta.builder().numero(conta.getNumero()).agencia(conta.getAgencia()).build();
-        Saque created = service.execute(dadosConta, new BigDecimal("111"));
+        Saque created = service.execute(dadosConta, saque.getData(), new BigDecimal("111"));
         assertEquals(new BigDecimal("111"), created.getValor());
     }
     
@@ -56,6 +57,6 @@ class CreateSaqueInteractorTest {
         
         DadosConta dadosConta = DadosConta.builder().numero(conta.getNumero()).agencia(conta.getAgencia()).build();
         BigDecimal valor = new BigDecimal("111");
-        assertThrows(NotFoundException.class, () -> service.execute(dadosConta, valor), "Conta 1 e agência 1111 não encontrada");
+        assertThrows(NotFoundException.class, () -> service.execute(dadosConta, LocalDate.now(), valor), "Conta 1 e agência 1111 não encontrada");
     }
 }

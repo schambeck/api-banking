@@ -15,4 +15,8 @@ public class ExtratoMovimentacaoUseCase {
     public Page<Movimentacao> execute(Pageable pageable, int contaId) {
         return repository.findAllByConta_IdOrderById(pageable, contaId);
     }
+    
+    public Page<Movimentacao> execute(Pageable pageable, int numeroConta, String agenciaConta) {
+        return repository.findAllByConta_NumeroAndConta_AgenciaOrderById(pageable, numeroConta, agenciaConta);
+    }
 }

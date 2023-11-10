@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import static br.com.castgroup.banking.usecase.conta.ContaUtil.createConta;
 import static br.com.castgroup.banking.usecase.correntista.CorrentistaUtil.createCorrentista;
@@ -38,7 +39,7 @@ class TransferenciaRestEndpointTest {
         Correntista correntistaDestino = createCorrentista(3, "Burton McMurtry", "burtonmcmurtry@gmail.com", "85182111070");
         Conta contaDestino = createConta(3, 3, "3333", correntistaDestino);
         Saldo saldoDestino = createSaldo(3, contaDestino, new BigDecimal("3000"));
-        Transferencia transferencia = createTransferencia(saldoOrigem, saldoDestino, new BigDecimal("111"));
+        Transferencia transferencia = createTransferencia(saldoOrigem, saldoDestino, LocalDate.now(), new BigDecimal("111"));
         when(service.create(request)).thenReturn(transferencia);
         
         ResponseEntity<TransferenciaWeb> response = endpoint.create(request);

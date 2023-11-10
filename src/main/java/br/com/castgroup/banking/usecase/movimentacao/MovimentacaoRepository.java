@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MovimentacaoRepository extends JpaRepository<Movimentacao, Integer> {
     Page<Movimentacao> findAllByConta_IdOrderById(Pageable pageable, int contaId);
+    
+    Page<Movimentacao> findAllByConta_NumeroAndConta_AgenciaOrderById(Pageable pageable, int numeroConta, String agenciaConta);
 }

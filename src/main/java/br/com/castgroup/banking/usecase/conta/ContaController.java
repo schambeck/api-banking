@@ -13,6 +13,7 @@ public class ContaController {
     private final RemoveContaUseCase remove;
     private final FindContaUseCase find;
     private final SearchContaUseCase search;
+    private final FindContaByNumeroAndAgenciaUseCase findByNumeroAndAgencia;
 
     public Conta createContaSaldoZerado(Conta entity) {
         return createContaSaldoZerado.execute(entity);
@@ -29,8 +30,12 @@ public class ContaController {
     public Conta findById(int id) {
         return find.execute(id);
     }
-
+    
     public Page<Conta> search(Pageable pageable, String text) {
         return search.execute(pageable, text);
+    }
+    
+    public Conta findByNumeroAndAgencia(int numero, String agencia) {
+        return findByNumeroAndAgencia.execute(numero, agencia);
     }
 }

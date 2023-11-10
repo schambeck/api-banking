@@ -9,14 +9,14 @@ public final class SaqueUtil {
     private SaqueUtil() {
     }
     
-    public static Saque createSaque(Saldo saldo, BigDecimal valor) {
-        return createSaque(null, saldo, valor);
+    public static Saque createSaque(Saldo saldo, LocalDate data, BigDecimal valor) {
+        return createSaque(null, saldo, data, valor);
     }
-    public static Saque createSaque(Integer id, Saldo saldo, BigDecimal valor) {
+    public static Saque createSaque(Integer id, Saldo saldo, LocalDate data, BigDecimal valor) {
         return Saque.builder()
                 .id(id)
                 .saldo(saldo)
-                .data(LocalDate.now())
+                .data(data)
                 .valor(valor)
                 .build();
     }

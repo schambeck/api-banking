@@ -17,8 +17,18 @@ public class MovimentacaoRestEndpoint {
     private static final MovimentacaoMapper mapper = MovimentacaoMapper.INSTANCE;
     private final MovimentacaoController controller;
     
-    @GetMapping("{contaId}")
+    @GetMapping("{id}")
+    public ResponseEntity<MovimentacaoWeb> get(@PathVariable int id) {
+        return ResponseEntity.ok(mapper.toWeb(controller.findById(id)));
+    }
+
+    @GetMapping("extrato/{contaId}")
     public ResponseEntity<Page<MovimentacaoWeb>> extrato(@PageableDefault Pageable pageable, @PathVariable int contaId) {
         return ResponseEntity.ok(controller.extrato(pageable, contaId).map(mapper::toWeb));
+    }
+
+    @GetMapping("extrato/{numeroConta}/{agenciaConta}")
+    public ResponseEntity<Page<MovimentacaoWeb>> extrato(@PageableDefault Pageable pageable, @PathVariable int numeroConta, @PathVariable String agenciaConta) {
+        return ResponseEntity.ok(controller.extrato(pageable, numeroConta, agenciaConta).map(mapper::toWeb));
     }
 }

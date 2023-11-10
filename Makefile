@@ -1,3 +1,13 @@
+APP = api-banking
+VERSION = 1.0.0
+JAR = ${APP}-${VERSION}.jar
+TARGET_JAR = target/${JAR}
+
+DOCKER_IMAGE = ${APP}:latest
+DOCKER_FOLDER = .
+DOCKER_CONF = ${DOCKER_FOLDER}/Dockerfile
+COMPOSE_CONF = ${DOCKER_FOLDER}/compose.yaml
+
 BASE_URL = http://localhost:8080
 ENTITY_RESOURCE = ${BASE_URL}/entities
 
@@ -21,6 +31,19 @@ check:
 
 jacoco-report:
 	./mvnw clean test jacoco:report -Dmaven.plugin.validation=BRIEF
+
+# sonar
+
+sonar-start:
+	docker run -d --name sonarqube -p 9000:9000 sonarqube:10.2.1-community
+
+sonar-run:
+	./mvnw clean verify sonar:sonar \
+      -Dsonar.projectKey=api-banking \
+      -Dsonar.projectName='api-banking' \
+      -Dsonar.host.url=http://localhost:9000 \
+      -Dsonar.token=sqp_85da1ad06e804a4f4f4ebbbe94f007b10357d81d \
+      -Dmaven.plugin.validation=BRIEF
 
 # compose
 
@@ -59,3 +82,35 @@ create-project-from-archetype:
 		-DarchetypeArtifactId=api-template-archetype \
 		-DinteractiveMode=false \
 		-Dpackage=br.com.castgroup.banking
+
+# Docker
+
+dist-docker-build: dist docker-build
+
+dist-docker-build-push: dist docker-build docker-push
+
+docker-build-push: docker-build docker-push
+
+docker-build:
+	DOCKER_BUILDKIT=1 docker build -f ${DOCKER_CONF} -t ${DOCKER_IMAGE} --build-arg=JAR_FILE=${JAR} target
+
+docker-run:
+	docker run -d \
+		--name ${APP} \
+	  	--env SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/banking \
+		--publish 8080:8080 \
+		${DOCKER_IMAGE}
+
+docker-tag:
+	docker tag ${APP} ${DOCKER_IMAGE}
+
+docker-push:
+	docker push ${DOCKER_IMAGE}
+
+docker-pull:
+	docker pull ${DOCKER_IMAGE}
+
+# keycloak
+
+keycloak-start:
+	docker run -p 9000:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:22.0.5 start-dev

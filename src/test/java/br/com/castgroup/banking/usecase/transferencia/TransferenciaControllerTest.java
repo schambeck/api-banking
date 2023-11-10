@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import static br.com.castgroup.banking.usecase.conta.ContaUtil.createConta;
 import static br.com.castgroup.banking.usecase.correntista.CorrentistaUtil.createCorrentista;
@@ -36,8 +37,8 @@ class TransferenciaControllerTest {
         Saldo saldoDestino = createSaldo(3, contaDestino, new BigDecimal("3000"));
         DadosConta dadosContaOrigem = DadosConta.builder().numero(contaOrigem.getNumero()).agencia(contaOrigem.getAgencia()).build();
         DadosConta dadosContaDestino = DadosConta.builder().numero(contaDestino.getNumero()).agencia(contaDestino.getAgencia()).build();
-        Transferencia transferencia = createTransferencia(saldoOrigem, saldoDestino, new BigDecimal("111"));
-        when(createTransferencia.execute(dadosContaOrigem, dadosContaDestino, new BigDecimal("111"))).thenReturn(transferencia);
+        Transferencia transferencia = createTransferencia(saldoOrigem, saldoDestino, LocalDate.now(), new BigDecimal("111"));
+        when(createTransferencia.execute(dadosContaOrigem, dadosContaDestino, transferencia.getData(), new BigDecimal("111"))).thenReturn(transferencia);
         
         CreateTransferenciaRequest request = CreateTransferenciaRequest.builder()
                 .dadosContaOrigem(dadosContaOrigem)

@@ -11,6 +11,6 @@ public class SaqueController {
 
     @Transactional
     public Saque create(CreateSaqueRequest request) {
-        return createSaque.execute(request.getDadosConta(), request.getValor());
+        return createSaque.execute(request.getDadosConta(), request.getData(), request.getValor());
     }
 }

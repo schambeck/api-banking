@@ -13,6 +13,10 @@ create table "movimentacao"
 );
 
 insert into movimentacao (conta_id, data, tipo, valor, saldo_anterior, version)
-values (1, current_date, 'DEBITO', 123, 0, 0);
+values (1, '2023-11-01', 'CREDITO', 111, 0, 0);
 insert into movimentacao (conta_id, data, tipo, valor, saldo_anterior, version)
-values (1, current_date, 'DEBITO', 321, 123, 0);
+values (1, '2023-11-02', 'CREDITO', 900, 111, 0);
+insert into movimentacao (conta_id, data, tipo, valor, saldo_anterior, version)
+values (1, '2023-11-02', 'CREDITO', 100, 1011, 0);
+insert into movimentacao (conta_id, data, tipo, valor, saldo_anterior, version)
+values (2, '2023-11-01', 'CREDITO', 2222, 0, 0);

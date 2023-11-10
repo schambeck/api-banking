@@ -43,4 +43,10 @@ public class ContaRestEndpoint {
                                                  @RequestParam(required = false) @Digits(integer = 12, fraction = 0, message = "Search by Valor must be a valid number with a maximum of 12 integral digits and 0 fractional digits") String text) {
         return ResponseEntity.ok(controller.search(pageable, text).map(mapper::toWeb));
     }
+
+    @GetMapping("{numero}/{agencia}")
+    public ResponseEntity<ContaWeb> findByNumeroAndAgencia(@PathVariable int numero, @PathVariable String agencia) {
+        return ResponseEntity.ok(mapper.toWeb(controller.findByNumeroAndAgencia(numero, agencia)));
+    }
+    
 }

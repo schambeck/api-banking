@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import static br.com.castgroup.banking.usecase.conta.ContaUtil.createConta;
 import static br.com.castgroup.banking.usecase.conta.ContaWebUtil.createContaWeb;
@@ -34,7 +35,7 @@ class SaqueMapperTest {
         Correntista correntista = createCorrentista(1, "Scott Anton", "scottanton@gmail.com", "73190252050");
         Conta conta = createConta(1, 1, "1111", correntista);
         Saldo saldo = createSaldo(1, conta, new BigDecimal("1000"));
-        Saque saque = createSaque(saldo, new BigDecimal("111"));
+        Saque saque = createSaque(saldo, LocalDate.now(),  new BigDecimal("111"));
         SaqueWeb web = mapper.toWeb(saque);
         assertEquals(new BigDecimal("111"), web.getValor());
     }
@@ -43,7 +44,7 @@ class SaqueMapperTest {
     void toWebCorrentistaNull() {
         Conta conta = createConta(1, 1, "1111", null);
         Saldo saldo = createSaldo(1, conta, new BigDecimal("1000"));
-        Saque saque = createSaque(saldo, new BigDecimal("111"));
+        Saque saque = createSaque(saldo, LocalDate.now(), new BigDecimal("111"));
         SaqueWeb web = mapper.toWeb(saque);
         assertEquals(new BigDecimal("111"), web.getValor());
         assertNull(web.getSaldo().getConta().getCorrentista());
@@ -52,7 +53,7 @@ class SaqueMapperTest {
     @Test
     void toWebContaNull() {
         Saldo saldo = createSaldo(1, null, new BigDecimal("1000"));
-        Saque saque = createSaque(saldo, new BigDecimal("111"));
+        Saque saque = createSaque(saldo, LocalDate.now(), new BigDecimal("111"));
         SaqueWeb web = mapper.toWeb(saque);
         assertEquals(new BigDecimal("111"), web.getValor());
         assertNull(web.getSaldo().getConta());
@@ -60,7 +61,7 @@ class SaqueMapperTest {
     
     @Test
     void toWebSaldoNull() {
-        Saque saque = createSaque(null, new BigDecimal("111"));
+        Saque saque = createSaque(null, LocalDate.now(), new BigDecimal("111"));
         SaqueWeb web = mapper.toWeb(saque);
         assertEquals(new BigDecimal("111"), web.getValor());
         assertNull(web.getSaldo());
@@ -121,9 +122,9 @@ class SaqueMapperTest {
         Correntista correntista = createCorrentista(1, "Scott Anton", "scottanton@gmail.com", "73190252050");
         Conta conta = createConta(1, 1, "1111", correntista);
         Saldo saldo = createSaldo(1, conta, new BigDecimal("1000"));
-        Saque source = createSaque(saldo, new BigDecimal("111"));
+        Saque source = createSaque(saldo, LocalDate.now(), new BigDecimal("111"));
         
-        Saque target = createSaque(saldo, new BigDecimal("222"));
+        Saque target = createSaque(saldo, LocalDate.now(), new BigDecimal("222"));
         mapper.copy(source, target);
         
         assertEquals(new BigDecimal("111"), target.getValor());
@@ -134,7 +135,7 @@ class SaqueMapperTest {
         Correntista correntista = createCorrentista(1, "Scott Anton", "scottanton@gmail.com", "73190252050");
         Conta conta = createConta(1, 1, "1111", correntista);
         Saldo saldo = createSaldo(1, conta, new BigDecimal("1000"));
-        Saque target = createSaque(saldo, new BigDecimal("111"));
+        Saque target = createSaque(saldo, LocalDate.now(), new BigDecimal("111"));
         mapper.copy(null, target);
         
         assertEquals(new BigDecimal("111"), target.getValor());

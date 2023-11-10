@@ -9,15 +9,15 @@ public final class TransferenciaUtil {
     private TransferenciaUtil() {
     }
     
-    public static Transferencia createTransferencia(Saldo saldoOrigem, Saldo saldoDestino, BigDecimal valor) {
-        return createTransferencia(null, saldoOrigem, saldoDestino, valor);
+    public static Transferencia createTransferencia(Saldo saldoOrigem, Saldo saldoDestino, LocalDate data, BigDecimal valor) {
+        return createTransferencia(null, saldoOrigem, saldoDestino, data, valor);
     }
-    public static Transferencia createTransferencia(Integer id, Saldo saldoOrigem, Saldo saldoDestino, BigDecimal valor) {
+    public static Transferencia createTransferencia(Integer id, Saldo saldoOrigem, Saldo saldoDestino, LocalDate data, BigDecimal valor) {
         return Transferencia.builder()
                 .id(id)
                 .saldoOrigem(saldoOrigem)
                 .saldoDestino(saldoDestino)
-                .data(LocalDate.now())
+                .data(data)
                 .valor(valor)
                 .build();
     }

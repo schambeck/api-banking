@@ -1,4 +1,4 @@
-package br.com.castgroup.banking.usecase.conta;
+package br.com.castgroup.banking.usecase.saldo;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -9,14 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class SearchContaUseCase {
-    private final ContaRepository repository;
+public class SearchSaldoUseCase {
+    private final SaldoRepository repository;
     
-    public Page<Conta> execute(Pageable pageable, String text) {
+    public Page<Saldo> execute(Pageable pageable, String text) {
         if (text == null || text.isBlank()) {
             return repository.findAllByOrderById(pageable);
         } else {
-            return repository.findAllByNumeroOrderByIdAsc(pageable, Integer.valueOf(text));
+            return repository.findAllByConta_NumeroOrderByIdAsc(pageable, Integer.valueOf(text));
         }
     }
 }

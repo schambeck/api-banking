@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static br.com.castgroup.banking.usecase.conta.ContaUtil.createConta;
@@ -48,14 +49,14 @@ class CreateSaqueUseCaseTest {
         Conta conta = createConta(1, 1, "1111", correntista);
         Saldo saldo = createSaldo(1, conta, new BigDecimal("1000"));
         Saldo updatedSaldo = createSaldo(1, conta, new BigDecimal("1111"));
-        Saque toCreate = createSaque(saldo, new BigDecimal("111"));
-        Saque createdMock = createSaque(1, saldo, new BigDecimal("111"));
+        Saque toCreate = createSaque(saldo, LocalDate.now(), new BigDecimal("111"));
+        Saque createdMock = createSaque(1, saldo, LocalDate.now(), new BigDecimal("111"));
         Movimentacao createdMovimentacao = createMovimentacao(1, toCreate.getSaldo().getConta(), toCreate.getData(), DEBITO, toCreate.getValor(), updatedSaldo.getValor());
         when(saldoRepository.findByConta(conta)).thenReturn(Optional.of(saldo));
         when(saldoRepository.save(saldo)).thenReturn(updatedSaldo);
         when(saqueRepository.save(any(Saque.class))).thenReturn(createdMock); // TODO toCreate
         when(movimentacaoRepository.save(any(Movimentacao.class))).thenReturn(createdMovimentacao); // TODO movimentacao
-        Saque created = service.execute(toCreate.getSaldo().getConta(), new BigDecimal("111"));
+        Saque created = service.execute(toCreate.getSaldo().getConta(), LocalDate.now(), new BigDecimal("111"));
         assertEquals(new BigDecimal("111"), created.getValor());
     }
     
@@ -65,7 +66,7 @@ class CreateSaqueUseCaseTest {
         Conta conta = createConta(1, 1, "1111", correntista);
         when(saldoRepository.findByConta(conta)).thenReturn(Optional.empty());
         BigDecimal valor = new BigDecimal("1234");
-        assertThrows(NotFoundException.class, () -> service.execute(conta, valor), "Saldo da Conta 1 não encontrado");
+        assertThrows(NotFoundException.class, () -> service.execute(conta, LocalDate.now(), valor), "Saldo da Conta 1 não encontrado");
     }
     
     @Test
@@ -75,6 +76,6 @@ class CreateSaqueUseCaseTest {
         Saldo saldo = createSaldo(1, conta, new BigDecimal("1000"));
         when(saldoRepository.findByConta(conta)).thenReturn(Optional.of(saldo));
         BigDecimal valor = new BigDecimal("1234");
-        assertThrows(BusinessException.class, () -> service.execute(conta, valor), "Limite da Conta Número %d Agência %s insuficiente");
+        assertThrows(BusinessException.class, () -> service.execute(conta, LocalDate.now(), valor), "Limite da Conta Número %d Agência %s insuficiente");
     }
 }

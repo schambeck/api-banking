@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import static br.com.castgroup.banking.usecase.conta.ContaUtil.createConta;
 import static br.com.castgroup.banking.usecase.correntista.CorrentistaUtil.createCorrentista;
@@ -38,7 +39,7 @@ class SaqueRestEndpointTest {
         Correntista correntista = createCorrentista(1, "Scott Anton", "scottanton@gmail.com", "73190252050");
         Conta conta = createConta(1, 1, "1111", correntista);
         Saldo saldo = createSaldo(1, conta, new BigDecimal("1000"));
-        Saque saque = createSaque(saldo, new BigDecimal("111"));
+        Saque saque = createSaque(saldo, LocalDate.now(), new BigDecimal("111"));
         CreateSaqueRequest request = CreateSaqueRequest.builder()
                 .dadosConta(dadosConta)
                 .valor(new BigDecimal("111"))

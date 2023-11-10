@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static br.com.castgroup.banking.usecase.conta.ContaUtil.createConta;
@@ -52,8 +53,8 @@ class CreateTransferenciaUseCaseTest {
         Conta contaDestino = createConta(3, 3, "3333", correntistaDestino);
         Saldo saldoDestino = createSaldo(3, contaDestino, new BigDecimal("3000"));
         Saldo updatedSaldoDestino = createSaldo(3, saldoDestino.getConta(), new BigDecimal("3111"));
-        Transferencia toCreate = createTransferencia(saldoOrigem, saldoDestino, new BigDecimal("111"));
-        Transferencia createdMock = createTransferencia(1, saldoOrigem, saldoDestino, new BigDecimal("111"));
+        Transferencia toCreate = createTransferencia(saldoOrigem, saldoDestino, LocalDate.now(), new BigDecimal("111"));
+        Transferencia createdMock = createTransferencia(1, saldoOrigem, saldoDestino, toCreate.getData(), new BigDecimal("111"));
         Movimentacao movimentacaoDebitoToCreate = createMovimentacao(toCreate.getSaldoOrigem().getConta(), toCreate.getData(), DEBITO, toCreate.getValor(), updatedSaldoOrigem.getValor());
         Movimentacao movimentacaoCreditoToCreate = createMovimentacao(toCreate.getSaldoDestino().getConta(), toCreate.getData(), CREDITO, toCreate.getValor(), updatedSaldoDestino.getValor());
         Movimentacao movimentacaoDebitoCreated = createMovimentacao(1, toCreate.getSaldoOrigem().getConta(), toCreate.getData(), DEBITO, toCreate.getValor(), updatedSaldoOrigem.getValor());
@@ -65,7 +66,7 @@ class CreateTransferenciaUseCaseTest {
         when(transferenciaRepository.save(toCreate)).thenReturn(createdMock);
         when(movimentacaoRepository.save(movimentacaoDebitoToCreate)).thenReturn(movimentacaoDebitoCreated); // TODO movimentacao
         when(movimentacaoRepository.save(movimentacaoCreditoToCreate)).thenReturn(movimentacaoCreditoCreated); // TODO movimentacao
-        Transferencia created = service.execute(toCreate.getSaldoOrigem().getConta(), toCreate.getSaldoDestino().getConta(), new BigDecimal("111"));
+        Transferencia created = service.execute(toCreate.getSaldoOrigem().getConta(), toCreate.getSaldoDestino().getConta(), LocalDate.now(), new BigDecimal("111"));
         assertEquals(new BigDecimal("111"), created.getValor());
     }
 
@@ -79,7 +80,7 @@ class CreateTransferenciaUseCaseTest {
         when(saldoRepository.findByConta(contaOrigem)).thenReturn(Optional.empty());
         when(saldoRepository.findByConta(contaDestino)).thenReturn(Optional.of(saldoDestino));
         BigDecimal valor = new BigDecimal("1234");
-        assertThrows(NotFoundException.class, () -> service.execute(contaOrigem, contaDestino, valor), "Saldo da Conta 1 não encontrado");
+        assertThrows(NotFoundException.class, () -> service.execute(contaOrigem, contaDestino, LocalDate.now(), valor), "Saldo da Conta 1 não encontrado");
     }
 
     @Test
@@ -92,7 +93,7 @@ class CreateTransferenciaUseCaseTest {
         when(saldoRepository.findByConta(contaOrigem)).thenReturn(Optional.of(saldoOrigem));
         when(saldoRepository.findByConta(contaDestino)).thenReturn(Optional.empty());
         BigDecimal valor = new BigDecimal("1234");
-        assertThrows(NotFoundException.class, () -> service.execute(contaOrigem, contaDestino, valor), "Saldo da Conta 1 não encontrado");
+        assertThrows(NotFoundException.class, () -> service.execute(contaOrigem, contaDestino, LocalDate.now(), valor), "Saldo da Conta 1 não encontrado");
     }
 
     @Test
@@ -106,6 +107,6 @@ class CreateTransferenciaUseCaseTest {
         when(saldoRepository.findByConta(contaOrigem)).thenReturn(Optional.of(saldoOrigem));
         when(saldoRepository.findByConta(contaDestino)).thenReturn(Optional.of(saldoDestino));
         BigDecimal valor = new BigDecimal("1234");
-        assertThrows(BusinessException.class, () -> service.execute(contaOrigem, contaDestino, valor), "Limite da Conta Número %d Agência %s insuficiente");
+        assertThrows(BusinessException.class, () -> service.execute(contaOrigem, contaDestino, LocalDate.now(), valor), "Limite da Conta Número %d Agência %s insuficiente");
     }
 }

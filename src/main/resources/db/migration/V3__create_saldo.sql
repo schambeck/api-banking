@@ -12,4 +12,8 @@ create table "saldo"
 create unique index "idx_saldo_conta" on "saldo" (conta_id);
 
 insert into saldo (conta_id, valor, version)
-values (3, 0, 0);
+values (1, 1111, 0);
+insert into saldo (conta_id, valor, version)
+values (2, 2222, 0);
+insert into saldo (conta_id, valor, version)
+values (3, 3333, 0);

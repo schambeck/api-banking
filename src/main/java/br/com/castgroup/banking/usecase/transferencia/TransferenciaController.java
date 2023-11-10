@@ -11,6 +11,6 @@ public class TransferenciaController {
 
     @Transactional
     public Transferencia create(CreateTransferenciaRequest request) {
-        return createTransferencia.execute(request.getDadosContaOrigem(), request.getDadosContaDestino(), request.getValor());
+        return createTransferencia.execute(request.getDadosContaOrigem(), request.getDadosContaDestino(), request.getData(), request.getValor());
     }
 }
