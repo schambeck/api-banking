@@ -54,8 +54,8 @@ class CreateSaqueUseCaseTest {
         Movimentacao createdMovimentacao = createMovimentacao(1, toCreate.getSaldo().getConta(), toCreate.getData(), DEBITO, toCreate.getValor(), updatedSaldo.getValor());
         when(saldoRepository.lockById(conta.getId())).thenReturn(Optional.of(saldo));
         when(saldoRepository.save(saldo)).thenReturn(updatedSaldo);
-        when(saqueRepository.save(any(Saque.class))).thenReturn(createdMock); // TODO toCreate
-        when(movimentacaoRepository.save(any(Movimentacao.class))).thenReturn(createdMovimentacao); // TODO movimentacao
+        when(saqueRepository.save(any(Saque.class))).thenReturn(createdMock);
+        when(movimentacaoRepository.save(any(Movimentacao.class))).thenReturn(createdMovimentacao);
         Saque created = service.execute(toCreate.getSaldo().getConta(), LocalDate.parse("2023-11-01"), new BigDecimal("111"));
         assertEquals(new BigDecimal("111"), created.getValor());
     }

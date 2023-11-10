@@ -64,8 +64,8 @@ class CreateTransferenciaUseCaseTest {
         when(saldoRepository.save(saldoOrigem)).thenReturn(updatedSaldoOrigem);
         when(saldoRepository.save(saldoDestino)).thenReturn(updatedSaldoDestino);
         when(transferenciaRepository.save(toCreate)).thenReturn(createdMock);
-        when(movimentacaoRepository.save(movimentacaoDebitoToCreate)).thenReturn(movimentacaoDebitoCreated); // TODO movimentacao
-        when(movimentacaoRepository.save(movimentacaoCreditoToCreate)).thenReturn(movimentacaoCreditoCreated); // TODO movimentacao
+        when(movimentacaoRepository.save(movimentacaoDebitoToCreate)).thenReturn(movimentacaoDebitoCreated);
+        when(movimentacaoRepository.save(movimentacaoCreditoToCreate)).thenReturn(movimentacaoCreditoCreated);
         Transferencia created = service.execute(toCreate.getSaldoOrigem().getConta(), toCreate.getSaldoDestino().getConta(), LocalDate.parse("2023-11-01"), new BigDecimal("111"));
         assertEquals(new BigDecimal("111"), created.getValor());
     }
