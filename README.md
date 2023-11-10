@@ -12,7 +12,7 @@
 - Spring Security: OAuth2, SSO, Keycloak
 - PostgreSQL, Flyway
 - Swagger
-- JUnit, Mockito, Testcontainers, JaCoCo
+ - JUnit, Mockito, JaCoCo
 
 ## Running project
 
