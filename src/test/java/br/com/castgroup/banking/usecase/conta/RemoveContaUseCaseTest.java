@@ -1,18 +1,19 @@
 package br.com.castgroup.banking.usecase.conta;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = RemoveContaUseCase.class)
+@ExtendWith(SpringExtension.class)
 class RemoveContaUseCaseTest {
-    @Autowired
+    @InjectMocks
     private RemoveContaUseCase service;
     
-    @MockBean
+    @Mock
     private ContaRepository repository;
     
     @Test

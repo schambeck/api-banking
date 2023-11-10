@@ -1,20 +1,21 @@
 package br.com.castgroup.banking.usecase.correntista;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static br.com.castgroup.banking.usecase.correntista.CorrentistaUtil.createCorrentista;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = CreateCorrentistaUseCase.class)
+@ExtendWith(SpringExtension.class)
 class CreateCorrentistaUseCaseTest {
-    @Autowired
+    @InjectMocks
     private CreateCorrentistaUseCase service;
     
-    @MockBean
+    @Mock
     private CorrentistaRepository repository;
     
     @Test

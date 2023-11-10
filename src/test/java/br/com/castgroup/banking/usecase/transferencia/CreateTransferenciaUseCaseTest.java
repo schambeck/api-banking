@@ -9,9 +9,10 @@ import br.com.castgroup.banking.usecase.movimentacao.MovimentacaoRepository;
 import br.com.castgroup.banking.usecase.saldo.Saldo;
 import br.com.castgroup.banking.usecase.saldo.SaldoRepository;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -27,18 +28,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = CreateTransferenciaUseCase.class)
+@ExtendWith(SpringExtension.class)
 class CreateTransferenciaUseCaseTest {
-    @Autowired
+    @InjectMocks
     private CreateTransferenciaUseCase service;
     
-    @MockBean
+    @Mock
     private TransferenciaRepository transferenciaRepository;
     
-    @MockBean
+    @Mock
     private SaldoRepository saldoRepository;
     
-    @MockBean
+    @Mock
     private MovimentacaoRepository movimentacaoRepository;
     
     @Test
@@ -69,7 +70,7 @@ class CreateTransferenciaUseCaseTest {
     }
 
     @Test
-    void executeSaldoNotFound() {
+    void executeSaldoOrigemNotFound() {
         Correntista correntistaOrigem = createCorrentista(1, "Scott Anton", "scottanton@gmail.com", "73190252050");
         Conta contaOrigem = createConta(1, 1, "1111", correntistaOrigem);
         Correntista correntistaDestino = createCorrentista(3, "Burton McMurtry", "burtonmcmurtry@gmail.com", "85182111070");
@@ -77,6 +78,19 @@ class CreateTransferenciaUseCaseTest {
         Saldo saldoDestino = createSaldo(3, contaDestino, new BigDecimal("3000"));
         when(saldoRepository.findByConta(contaOrigem)).thenReturn(Optional.empty());
         when(saldoRepository.findByConta(contaDestino)).thenReturn(Optional.of(saldoDestino));
+        BigDecimal valor = new BigDecimal("1234");
+        assertThrows(NotFoundException.class, () -> service.execute(contaOrigem, contaDestino, valor), "Saldo da Conta 1 não encontrado");
+    }
+
+    @Test
+    void executeSaldoDestinoNotFound() {
+        Correntista correntistaOrigem = createCorrentista(1, "Scott Anton", "scottanton@gmail.com", "73190252050");
+        Conta contaOrigem = createConta(1, 1, "1111", correntistaOrigem);
+        Saldo saldoOrigem = createSaldo(1, contaOrigem, new BigDecimal("1000"));
+        Correntista correntistaDestino = createCorrentista(3, "Burton McMurtry", "burtonmcmurtry@gmail.com", "85182111070");
+        Conta contaDestino = createConta(3, 3, "3333", correntistaDestino);
+        when(saldoRepository.findByConta(contaOrigem)).thenReturn(Optional.of(saldoOrigem));
+        when(saldoRepository.findByConta(contaDestino)).thenReturn(Optional.empty());
         BigDecimal valor = new BigDecimal("1234");
         assertThrows(NotFoundException.class, () -> service.execute(contaOrigem, contaDestino, valor), "Saldo da Conta 1 não encontrado");
     }

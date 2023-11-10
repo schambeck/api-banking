@@ -2,12 +2,13 @@ package br.com.castgroup.banking.usecase.conta;
 
 import br.com.castgroup.banking.usecase.correntista.Correntista;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 
@@ -18,12 +19,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = SearchContaUseCase.class)
+@ExtendWith(SpringExtension.class)
 class SearchContaUseCaseTest {
-    @Autowired
+    @InjectMocks
     private SearchContaUseCase service;
     
-    @MockBean
+    @Mock
     private ContaRepository repository;
     
     @Test
@@ -40,6 +41,13 @@ class SearchContaUseCaseTest {
     void searchNull() {
         when(repository.findAllByNumeroOrderByIdAsc(PageRequest.of(0, 10), null)).thenReturn(new PageImpl<>(new ArrayList<>()));
         Page<Conta> contas = service.execute(PageRequest.of(0, 10), null);
+        assertNull(contas);
+    }
+
+    @Test
+    void searchEmpty() {
+        when(repository.findAllByNumeroOrderByIdAsc(PageRequest.of(0, 10), null)).thenReturn(new PageImpl<>(new ArrayList<>()));
+        Page<Conta> contas = service.execute(PageRequest.of(0, 10), "");
         assertNull(contas);
     }
 }

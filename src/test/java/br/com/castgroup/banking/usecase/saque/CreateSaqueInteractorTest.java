@@ -7,9 +7,10 @@ import br.com.castgroup.banking.usecase.correntista.Correntista;
 import br.com.castgroup.banking.usecase.saldo.Saldo;
 import br.com.castgroup.banking.usecase.transferencia.DadosConta;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -22,15 +23,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = CreateSaqueInteractor.class)
+@ExtendWith(SpringExtension.class)
 class CreateSaqueInteractorTest {
-    @Autowired
+    @InjectMocks
     private CreateSaqueInteractor service;
     
-    @MockBean
+    @Mock
     private CreateSaqueUseCase createSaque;
     
-    @MockBean
+    @Mock
     private ContaRepository contaRepository;
     
     @Test

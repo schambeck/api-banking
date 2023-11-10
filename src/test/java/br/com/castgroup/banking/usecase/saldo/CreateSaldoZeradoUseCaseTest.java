@@ -4,9 +4,10 @@ import br.com.castgroup.banking.exception.NotFoundException;
 import br.com.castgroup.banking.usecase.conta.Conta;
 import br.com.castgroup.banking.usecase.correntista.Correntista;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -19,12 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = CreateSaldoZeradoUseCase.class)
+@ExtendWith(SpringExtension.class)
 class CreateSaldoZeradoUseCaseTest {
-    @Autowired
+    @InjectMocks
     private CreateSaldoZeradoUseCase service;
     
-    @MockBean
+    @Mock
     private SaldoRepository saldoRepository;
     
     @Test

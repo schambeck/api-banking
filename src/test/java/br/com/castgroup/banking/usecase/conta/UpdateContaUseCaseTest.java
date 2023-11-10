@@ -3,9 +3,10 @@ package br.com.castgroup.banking.usecase.conta;
 import br.com.castgroup.banking.exception.NotFoundException;
 import br.com.castgroup.banking.usecase.correntista.Correntista;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
@@ -16,15 +17,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = UpdateContaUseCase.class)
+@ExtendWith(SpringExtension.class)
 class UpdateContaUseCaseTest {
-    @Autowired
+    @InjectMocks
     private UpdateContaUseCase service;
     
-    @MockBean
+    @Mock
     private ContaRepository repository;
     
-    @MockBean
+    @Mock
     private ContaMapper mapper;
     
     @Test
