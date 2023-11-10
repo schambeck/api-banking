@@ -36,6 +36,9 @@ class ContaControllerTest {
     @Mock
     private SearchContaUseCase search;
     
+    @Mock
+    private FindContaByNumeroAndAgenciaUseCase findContaByNumeroAndAgencia;
+    
     @Test
     void create() {
         Correntista correntistaMock = createCorrentista(1, "Scott Anton", "scottanton@gmail.com", "73190252050");
@@ -79,5 +82,14 @@ class ContaControllerTest {
         Page<Conta> contas = controller.search(PageRequest.of(0, 10), "3");
         assertEquals(1, contas.getContent().size());
         assertEquals(3, contas.getContent().get(0).getNumero());
+    }
+    
+    @Test
+    void findByNumeroAndAgencia() {
+        Correntista correntistaMock = createCorrentista(3, "Charles Benson", "charlesbenson@gmail.com", "07095797056");
+        Conta createdMock = createConta( 3, "3333", correntistaMock);
+        when(findContaByNumeroAndAgencia.execute(3, "3333")).thenReturn(createdMock);
+        Conta conta = controller.findByNumeroAndAgencia(3, "3333");
+        assertEquals(3, conta.getNumero());
     }
 }

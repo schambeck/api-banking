@@ -8,9 +8,6 @@ DOCKER_FOLDER = .
 DOCKER_CONF = ${DOCKER_FOLDER}/Dockerfile
 COMPOSE_CONF = ${DOCKER_FOLDER}/compose.yaml
 
-BASE_URL = http://localhost:8080
-ENTITY_RESOURCE = ${BASE_URL}/entities
-
 # maven
 
 clean:
@@ -42,7 +39,7 @@ sonar-run:
       -Dsonar.projectKey=api-banking \
       -Dsonar.projectName='api-banking' \
       -Dsonar.host.url=http://localhost:9000 \
-      -Dsonar.token=sqp_85da1ad06e804a4f4f4ebbbe94f007b10357d81d \
+      -Dsonar.token= \
       -Dmaven.plugin.validation=BRIEF
 
 # compose
@@ -52,13 +49,11 @@ compose-down-up: compose-down compose-up
 compose-up:
 	docker-compose up -d
 
+compose-up-postgres:
+	docker-compose up -d postgres
+
 compose-down:
 	docker-compose down
-
-# http
-
-http-list-entity:
-	http GET ${ENTITY_RESOURCE}?page=0
 
 # archetype
 

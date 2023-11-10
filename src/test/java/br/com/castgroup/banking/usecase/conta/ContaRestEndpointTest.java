@@ -109,4 +109,19 @@ class ContaRestEndpointTest {
         assertNotNull(response.getBody());
         assertEquals(3, response.getBody().getContent().get(0).getNumero());
     }
+    
+    @Test
+    void givenFindByNumeroAndAgencia_whenExists_thenCorrect() {
+        Correntista correntistaMock = createCorrentista(3, "Charles Benson", "charlesbenson@gmail.com", "07095797056");
+        Conta created = createConta(3, "3333", correntistaMock);
+        CorrentistaWeb correntistaWebMock = createCorrentistaWeb(3, "Charles Benson", "charlesbenson@gmail.com", "07095797056");
+        ContaWeb createdWeb = createContaWeb( 3, "3333", correntistaWebMock);
+        when(controller.findByNumeroAndAgencia(3, "3333")).thenReturn(created);
+        when(mapper.toWeb(created)).thenReturn(createdWeb);
+        ResponseEntity<ContaWeb> response = endpoint.findByNumeroAndAgencia(3, "3333");
+        
+        assertEquals(OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(3, response.getBody().getNumero());
+    }
 }

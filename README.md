@@ -19,7 +19,7 @@
 ### Start infra (PostgreSQL)
 To start the PostgreSQL database, follow these steps:
 ```bash
-$ make compose-up
+$ make compose-up-postgres
 ```
 
 ### 🚀 Build artifact
@@ -33,3 +33,26 @@ To run the application, follow these steps:
 ```bash
 $ make run
 ```
+
+Open Swagger - http://localhost:8080
+
+### Run application in Docker
+To run the backend and database through Docker, follow these steps:
+```bash
+$ make dist-docker-build
+$ make compose-up
+```
+
+### Unit Tests
+To run the unit tests, follow these steps:
+```bash
+$ make test
+```
+
+### Coverage Report with JaCoCo
+To generate the coverage report, follow these steps:
+```bash
+$ make jacoco-report
+```
+
+Open report - ./target/site/jacoco/index.html

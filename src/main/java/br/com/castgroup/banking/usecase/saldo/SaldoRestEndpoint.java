@@ -1,19 +1,18 @@
     package br.com.castgroup.banking.usecase.saldo;
-
-import jakarta.validation.constraints.Digits;
-import lombok.RequiredArgsConstructor;
-import org.mapstruct.factory.Mappers;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+    
+    import jakarta.validation.constraints.Digits;
+    import lombok.RequiredArgsConstructor;
+    import org.springframework.data.domain.Page;
+    import org.springframework.data.domain.Pageable;
+    import org.springframework.data.web.PageableDefault;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("saldos")
 @RequiredArgsConstructor
 public class SaldoRestEndpoint {
-    private final SaldoMapper mapper = Mappers.getMapper(SaldoMapper.class);
+    private static final SaldoMapper mapper = SaldoMapper.INSTANCE;
     private final SaldoController controller;
 
     @GetMapping("{id}")
