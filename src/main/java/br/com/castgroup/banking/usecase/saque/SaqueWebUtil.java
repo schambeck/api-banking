@@ -16,7 +16,7 @@ public final class SaqueWebUtil {
         return SaqueWeb.builder()
                 .id(id)
                 .saldo(saldo)
-                .data(LocalDate.now())
+                .data(LocalDate.parse("2023-11-01"))
                 .valor(valor)
                 .build();
     }

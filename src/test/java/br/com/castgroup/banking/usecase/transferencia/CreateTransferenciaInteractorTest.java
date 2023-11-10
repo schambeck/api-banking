@@ -42,7 +42,7 @@ class CreateTransferenciaInteractorTest {
         Correntista correntistaDestino = createCorrentista(3, "Burton McMurtry", "burtonmcmurtry@gmail.com", "85182111070");
         Conta contaDestino = createConta(3, 3, "3333", correntistaDestino);
         Saldo saldoDestino = createSaldo(3, contaDestino, new BigDecimal("3000"));
-        Transferencia transferencia = createTransferencia(saldoOrigem, saldoDestino, LocalDate.now(), new BigDecimal("111"));
+        Transferencia transferencia = createTransferencia(saldoOrigem, saldoDestino, LocalDate.parse("2023-11-01"), new BigDecimal("111"));
         when(contaRepository.findByNumeroAndAgencia(1, "1111")).thenReturn(Optional.of(contaOrigem));
         when(contaRepository.findByNumeroAndAgencia(3, "3333")).thenReturn(Optional.of(contaDestino));
         when(createTransferencia.execute(contaOrigem, contaDestino, transferencia.getData(), new BigDecimal("111"))).thenReturn(transferencia);
@@ -65,7 +65,7 @@ class CreateTransferenciaInteractorTest {
         DadosConta dadosContaOrigem = DadosConta.builder().numero(contaOrigem.getNumero()).agencia(contaOrigem.getAgencia()).build();
         DadosConta dadosContaDestino = DadosConta.builder().numero(contaDestino.getNumero()).agencia(contaDestino.getAgencia()).build();
         BigDecimal valor = new BigDecimal("111");
-        assertThrows(NotFoundException.class, () -> service.execute(dadosContaOrigem, dadosContaDestino, LocalDate.now(), valor), "Conta 1 e agência 1111 não encontrada");
+        assertThrows(NotFoundException.class, () -> service.execute(dadosContaOrigem, dadosContaDestino, LocalDate.parse("2023-11-01"), valor), "Conta 1 e agência 1111 não encontrada");
     }
     
     @Test
@@ -80,6 +80,6 @@ class CreateTransferenciaInteractorTest {
         DadosConta dadosContaOrigem = DadosConta.builder().numero(contaOrigem.getNumero()).agencia(contaOrigem.getAgencia()).build();
         DadosConta dadosContaDestino = DadosConta.builder().numero(contaDestino.getNumero()).agencia(contaDestino.getAgencia()).build();
         BigDecimal valor = new BigDecimal("111");
-        assertThrows(NotFoundException.class, () -> service.execute(dadosContaOrigem, dadosContaDestino, LocalDate.now(), valor), "Conta 3 e agência 3333 não encontrada");
+        assertThrows(NotFoundException.class, () -> service.execute(dadosContaOrigem, dadosContaDestino, LocalDate.parse("2023-11-01"), valor), "Conta 3 e agência 3333 não encontrada");
     }
 }

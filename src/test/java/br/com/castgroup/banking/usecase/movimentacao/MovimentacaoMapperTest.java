@@ -24,7 +24,7 @@ class MovimentacaoMapperTest {
     @Test
     void toWebCorrentistaNull() {
         Conta conta = createConta(1, "1111", null);
-        Movimentacao entity = createMovimentacao(conta, LocalDate.now(), DEBITO, new BigDecimal("123"), new BigDecimal("0"));
+        Movimentacao entity = createMovimentacao(conta, LocalDate.parse("2023-11-01"), DEBITO, new BigDecimal("123"), new BigDecimal("0"));
         
         MovimentacaoWeb web = mapper.toWeb(entity);
         
@@ -33,7 +33,7 @@ class MovimentacaoMapperTest {
 
     @Test
     void toWebCotaNull() {
-        Movimentacao entity = createMovimentacao(null, LocalDate.now(), DEBITO, new BigDecimal("123"), new BigDecimal("0"));
+        Movimentacao entity = createMovimentacao(null, LocalDate.parse("2023-11-01"), DEBITO, new BigDecimal("123"), new BigDecimal("0"));
         
         MovimentacaoWeb web = mapper.toWeb(entity);
         

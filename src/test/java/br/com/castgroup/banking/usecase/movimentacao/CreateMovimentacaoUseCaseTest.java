@@ -30,8 +30,8 @@ class CreateMovimentacaoUseCaseTest {
     void execute() {
         Correntista correntistaMock = createCorrentista(1, "Charles Benson", "charlesbenson@gmail.com", "07095797056");
         Conta conta = createConta(1, "1111", correntistaMock);
-        Movimentacao toCreate = createMovimentacao(conta, LocalDate.now(), DEBITO, new BigDecimal("123"), new BigDecimal("0"));
-        Movimentacao createdMock = createMovimentacao(1, conta, LocalDate.now(), DEBITO, new BigDecimal("123"), new BigDecimal("0"));
+        Movimentacao toCreate = createMovimentacao(conta, LocalDate.parse("2023-11-01"), DEBITO, new BigDecimal("123"), new BigDecimal("0"));
+        Movimentacao createdMock = createMovimentacao(1, conta, LocalDate.parse("2023-11-01"), DEBITO, new BigDecimal("123"), new BigDecimal("0"));
         when(repository.save(toCreate)).thenReturn(createdMock);
         
         Movimentacao created = createMovimentacao.execute(toCreate);

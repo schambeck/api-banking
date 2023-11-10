@@ -37,11 +37,12 @@ class SaqueControllerTest {
         Correntista correntista = createCorrentista(1, "Scott Anton", "scottanton@gmail.com", "73190252050");
         Conta conta = createConta(1, 1, "1111", correntista);
         Saldo saldo = createSaldo(1, conta, new BigDecimal("1000"));
-        Saque saque = createSaque(saldo, LocalDate.now(), new BigDecimal("111"));
+        Saque saque = createSaque(saldo, LocalDate.parse("2023-11-01"), new BigDecimal("111"));
         when(createSaque.execute(dadosConta, saque.getData(), new BigDecimal("111"))).thenReturn(saque);
         
         CreateSaqueRequest request = CreateSaqueRequest.builder()
                 .dadosConta(dadosConta)
+                .data(LocalDate.parse("2023-11-01"))
                 .valor(new BigDecimal("111"))
                 .build();
         Saque created = controller.create(request);

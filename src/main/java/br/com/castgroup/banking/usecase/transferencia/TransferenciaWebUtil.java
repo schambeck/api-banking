@@ -17,7 +17,7 @@ public final class TransferenciaWebUtil {
                 .id(id)
                 .saldoOrigem(saldoOrigem)
                 .saldoDestino(saldoDestino)
-                .data(LocalDate.now())
+                .data(LocalDate.parse("2023-11-01"))
                 .valor(valor)
                 .build();
     }

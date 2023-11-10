@@ -37,12 +37,13 @@ class TransferenciaControllerTest {
         Saldo saldoDestino = createSaldo(3, contaDestino, new BigDecimal("3000"));
         DadosConta dadosContaOrigem = DadosConta.builder().numero(contaOrigem.getNumero()).agencia(contaOrigem.getAgencia()).build();
         DadosConta dadosContaDestino = DadosConta.builder().numero(contaDestino.getNumero()).agencia(contaDestino.getAgencia()).build();
-        Transferencia transferencia = createTransferencia(saldoOrigem, saldoDestino, LocalDate.now(), new BigDecimal("111"));
+        Transferencia transferencia = createTransferencia(saldoOrigem, saldoDestino, LocalDate.parse("2023-11-01"), new BigDecimal("111"));
         when(createTransferencia.execute(dadosContaOrigem, dadosContaDestino, transferencia.getData(), new BigDecimal("111"))).thenReturn(transferencia);
         
         CreateTransferenciaRequest request = CreateTransferenciaRequest.builder()
                 .dadosContaOrigem(dadosContaOrigem)
                 .dadosContaDestino(dadosContaDestino)
+                .data(LocalDate.parse("2023-11-01"))
                 .valor(new BigDecimal("111"))
                 .build();
         Transferencia created = controller.create(request);

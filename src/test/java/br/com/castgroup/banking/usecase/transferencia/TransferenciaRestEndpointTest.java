@@ -39,7 +39,7 @@ class TransferenciaRestEndpointTest {
         Correntista correntistaDestino = createCorrentista(3, "Burton McMurtry", "burtonmcmurtry@gmail.com", "85182111070");
         Conta contaDestino = createConta(3, 3, "3333", correntistaDestino);
         Saldo saldoDestino = createSaldo(3, contaDestino, new BigDecimal("3000"));
-        Transferencia transferencia = createTransferencia(saldoOrigem, saldoDestino, LocalDate.now(), new BigDecimal("111"));
+        Transferencia transferencia = createTransferencia(saldoOrigem, saldoDestino, LocalDate.parse("2023-11-01"), new BigDecimal("111"));
         when(service.create(request)).thenReturn(transferencia);
         
         ResponseEntity<TransferenciaWeb> response = endpoint.create(request);

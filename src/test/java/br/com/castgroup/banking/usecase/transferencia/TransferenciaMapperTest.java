@@ -38,7 +38,7 @@ class TransferenciaMapperTest {
         Correntista correntistaDestino = createCorrentista(3, "Burton McMurtry", "burtonmcmurtry@gmail.com", "85182111070");
         Conta contaDestino = createConta(3, 3, "3333", correntistaDestino);
         Saldo saldoDestino = createSaldo(3, contaDestino, new BigDecimal("3000"));
-        Transferencia transferencia = createTransferencia(saldoOrigem, saldoDestino, LocalDate.now(), new BigDecimal("111"));
+        Transferencia transferencia = createTransferencia(saldoOrigem, saldoDestino, LocalDate.parse("2023-11-01"), new BigDecimal("111"));
 
         TransferenciaWeb web = mapper.toWeb(transferencia);
         
@@ -52,7 +52,7 @@ class TransferenciaMapperTest {
         Correntista correntistaDestino = createCorrentista(3, "Burton McMurtry", "burtonmcmurtry@gmail.com", "85182111070");
         Conta contaDestino = createConta(3, 3, "3333", correntistaDestino);
         Saldo saldoDestino = createSaldo(3, contaDestino, new BigDecimal("3000"));
-        Transferencia transferencia = createTransferencia(saldoOrigem, saldoDestino, LocalDate.now(), new BigDecimal("111"));
+        Transferencia transferencia = createTransferencia(saldoOrigem, saldoDestino, LocalDate.parse("2023-11-01"), new BigDecimal("111"));
         TransferenciaWeb web = mapper.toWeb(transferencia);
         assertEquals(new BigDecimal("111"), web.getValor());
         assertNull(web.getSaldoOrigem().getConta().getCorrentista());
@@ -64,7 +64,7 @@ class TransferenciaMapperTest {
         Correntista correntistaDestino = createCorrentista(3, "Burton McMurtry", "burtonmcmurtry@gmail.com", "85182111070");
         Conta contaDestino = createConta(3, 3, "3333", correntistaDestino);
         Saldo saldoDestino = createSaldo(3, contaDestino, new BigDecimal("3000"));
-        Transferencia transferencia = createTransferencia(saldoOrigem, saldoDestino, LocalDate.now(), new BigDecimal("111"));
+        Transferencia transferencia = createTransferencia(saldoOrigem, saldoDestino, LocalDate.parse("2023-11-01"), new BigDecimal("111"));
         
         TransferenciaWeb web = mapper.toWeb(transferencia);
         
@@ -77,7 +77,7 @@ class TransferenciaMapperTest {
         Correntista correntistaDestino = createCorrentista(3, "Burton McMurtry", "burtonmcmurtry@gmail.com", "85182111070");
         Conta contaDestino = createConta(3, 3, "3333", correntistaDestino);
         Saldo saldoDestino = createSaldo(3, contaDestino, new BigDecimal("3000"));
-        Transferencia transferencia = createTransferencia(null, saldoDestino, LocalDate.now(), new BigDecimal("111"));
+        Transferencia transferencia = createTransferencia(null, saldoDestino, LocalDate.parse("2023-11-01"), new BigDecimal("111"));
         
         TransferenciaWeb web = mapper.toWeb(transferencia);
         
@@ -162,8 +162,8 @@ class TransferenciaMapperTest {
         Correntista correntistaDestino = createCorrentista(3, "Burton McMurtry", "burtonmcmurtry@gmail.com", "85182111070");
         Conta contaDestino = createConta(3, 3, "3333", correntistaDestino);
         Saldo saldoDestino = createSaldo(3, contaDestino, new BigDecimal("3000"));
-        Transferencia source = createTransferencia(saldoOrigem, saldoDestino, LocalDate.now(), new BigDecimal("111"));
-        Transferencia target = createTransferencia(saldoOrigem, saldoDestino, LocalDate.now(), new BigDecimal("222"));
+        Transferencia source = createTransferencia(saldoOrigem, saldoDestino, LocalDate.parse("2023-11-01"), new BigDecimal("111"));
+        Transferencia target = createTransferencia(saldoOrigem, saldoDestino, LocalDate.parse("2023-11-01"), new BigDecimal("222"));
 
         mapper.copy(source, target);
         
@@ -178,7 +178,7 @@ class TransferenciaMapperTest {
         Correntista correntistaDestino = createCorrentista(3, "Burton McMurtry", "burtonmcmurtry@gmail.com", "85182111070");
         Conta contaDestino = createConta(3, 3, "3333", correntistaDestino);
         Saldo saldoDestino = createSaldo(3, contaDestino, new BigDecimal("3000"));
-        Transferencia target = createTransferencia(saldoOrigem, saldoDestino, LocalDate.now(), new BigDecimal("111"));
+        Transferencia target = createTransferencia(saldoOrigem, saldoDestino, LocalDate.parse("2023-11-01"), new BigDecimal("111"));
         mapper.copy(null, target);
         
         assertEquals(new BigDecimal("111"), target.getValor());
