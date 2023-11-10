@@ -20,6 +20,8 @@ public abstract class ContaMapper {
     
     @AfterMapping
     public void loadRelations(@MappingTarget Conta.ContaBuilder target, ContaWeb web) {
-        target.correntista(correntistaRepository.findById(web.getCorrentista().getId()).orElseThrow(() -> new NotFoundException("Entity %d not found".formatted(web.getCorrentista().getId()))));
+        if (web.getCorrentista() != null) {
+            target.correntista(correntistaRepository.findById(web.getCorrentista().getId()).orElseThrow(() -> new NotFoundException("Entity %d not found".formatted(web.getCorrentista().getId()))));
+        }
     }
 }

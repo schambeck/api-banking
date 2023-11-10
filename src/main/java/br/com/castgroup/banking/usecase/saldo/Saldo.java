@@ -26,7 +26,7 @@ public class Saldo {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = IDENTITY)
-	private int id;
+	private Integer id;
 
 	@EqualsAndHashCode.Include
 	@ManyToOne(cascade = MERGE)
