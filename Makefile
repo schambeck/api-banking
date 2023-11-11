@@ -125,4 +125,4 @@ kc-docker-run:
 		-e KC_HTTP_PORT=9000 \
 		-e KEYCLOAK_ADMIN=admin \
 		-e KEYCLOAK_ADMIN_PASSWORD=admin \
-		${KC_DOCKER_IMAGE}
+		${KC_DOCKER_IMAGE} start-dev --import-realm
