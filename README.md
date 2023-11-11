@@ -35,7 +35,7 @@ To run the application, follow these steps:
 $ make run
 ```
 
-Open Swagger - http://localhost:8080
+Open Swagger - http://localhost:8080/swagger-ui.html
 
 ### Run application in Docker
 To run the backend and database through Docker, follow these steps:
@@ -57,3 +57,14 @@ $ make jacoco-report
 ```
 
 Open report - ./target/site/jacoco/index.html
+
+### Build and run backend and keycloak
+To generate the coverage report, follow these steps:
+```bash
+$ make kc-docker-build
+$ make docker-build
+$ make compose-up
+```
+
+Backend Swagger: http://localhost:8080/swagger-ui.html
+Keycloak Admin Console: http://localhost:9000

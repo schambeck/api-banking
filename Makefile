@@ -105,7 +105,24 @@ docker-push:
 docker-pull:
 	docker pull ${DOCKER_IMAGE}
 
-# keycloak
+# Keycloak
 
-keycloak-start:
-	docker run -p 9000:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:22.0.5 start-dev
+KC_APP = kc-banking
+KC_DOCKER_IMAGE = ${KC_APP}:latest
+KC_DOCKERFILE = Dockerfile.kc
+
+kc-docker-build-push: kc-docker-build kc-docker-push
+
+kc-docker-build:
+	docker build -f ${KC_DOCKERFILE} -t ${KC_DOCKER_IMAGE} .
+
+kc-docker-push:
+	docker push ${KC_DOCKER_IMAGE}
+
+kc-docker-run:
+	docker run -p 9000:9000 \
+		--name ${KC_APP} \
+		-e KC_HTTP_PORT=9000 \
+		-e KEYCLOAK_ADMIN=admin \
+		-e KEYCLOAK_ADMIN_PASSWORD=admin \
+		${KC_DOCKER_IMAGE}
